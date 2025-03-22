@@ -4,6 +4,7 @@ import {
   View,
   TouchableOpacity,
   Text,
+  ToastAndroid,
 } from 'react-native';
 import React, {useState} from 'react';
 import {Picker} from '@react-native-picker/picker';
@@ -31,8 +32,13 @@ const EditNote = ({route}) => {
     }));
   };
 
+  const showToast = () => {
+    ToastAndroid.show('Note Edited successfully!', ToastAndroid.SHORT);
+  };
+
   const handleEditNote = () => {
     dispatch(editNote(newNote));
+    showToast();
     navigation.navigate('Home');
   };
 

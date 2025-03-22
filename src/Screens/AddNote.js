@@ -40,6 +40,10 @@ const AddNote = () => {
     }));
   };
 
+  const showToast = () => {
+    ToastAndroid.show('Note added successfully!', ToastAndroid.SHORT);
+  };
+
   const handleAddNote = () => {
     const newId = generateId();
 
@@ -54,6 +58,7 @@ const AddNote = () => {
       note: '',
       category: 'Personal',
     });
+    showToast();
     navigation.navigate('Home');
   };
 
