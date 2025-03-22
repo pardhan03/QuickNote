@@ -9,14 +9,25 @@ import React, {useState} from 'react';
 import {Picker} from '@react-native-picker/picker';
 import {useDispatch} from 'react-redux';
 import {addNote} from '../Public/redux/notes/noteSlice';
+import {useSelector} from 'react-redux';
+
 const AddNote = () => {
   const [note, setNote] = useState({
     title: '',
     note: '',
-    category: '',
+    category: 'Personal',
   });
-
+  const notes = useSelector(state => state.notes.data);
   const dispatch = useDispatch();
+
+  const generateId = () => {
+    let newId = Math.random().toString(36).substr(2, 9);
+    while (notes.some(existingNote => existingNote.id === newId)) {
+      newId = Math.random().toString(36).substr(2, 9);
+    }
+
+    return newId;
+  };
 
   const handleInputChange = (field, value) => {
     setNote(prevState => ({
@@ -26,8 +37,15 @@ const AddNote = () => {
   };
 
   const handleAddNote = () => {
-    dispatch(addNote(note));
+    const newId = generateId();
+
+    const newNote = {
+      ...note,
+      id: newId,
+    };
+    dispatch(addNote(newNote));
     setNote({
+      id: '',
       title: '',
       note: '',
       category: '',
