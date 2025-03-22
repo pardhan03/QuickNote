@@ -1,53 +1,64 @@
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
+import {useNavigation} from '@react-navigation/native';
 
-const Card = ({title, category, note, category_id}) => {
+const Card = ({value}) => {
+  const {title, category, note, id} = value;
+
   const cardColor =
-    category_id == '1'
+    id == '1'
       ? '#66CCCC'
-      : category_id == '2'
+      : id == '2'
       ? '#36465D'
-      : category_id == '3'
+      : id == '3'
       ? '#00A68C'
-      : category_id == '4'
+      : id == '4'
       ? '#660033'
-      : category_id == '5'
+      : id == '5'
       ? '#666699'
-      : category_id == '6'
+      : id == '6'
       ? '#33CCCC'
-      : category_id == '7'
+      : id == '7'
       ? '#999966'
-      : category_id == '8'
+      : id == '8'
       ? '#996633'
-      : category_id == '9'
+      : id == '9'
       ? '#336633'
-      : category_id == '10'
+      : id == '10'
       ? '#990066'
-      : category_id == '11'
+      : id == '11'
       ? '#33CC99'
-      : category_id == '12'
+      : id == '12'
       ? '#CCFFCC'
-      : category_id == '13'
+      : id == '13'
       ? '#003300'
-      : category_id == '14'
+      : id == '14'
       ? '#660000'
-      : category_id == '17'
+      : id == '17'
       ? '#33CC99'
-      : category_id == '18'
+      : id == '18'
       ? '#00A68C'
-      : category_id == '19'
+      : id == '19'
       ? '#10A68C'
-      : category_id == '20'
+      : id == '20'
       ? '#00A64C'
-      : category_id == '21'
+      : id == '21'
       ? '#21A68C'
-      : category_id == '22'
+      : id == '22'
       ? '#06268C'
-      : category_id == '23'
+      : id == '23'
       ? '#00A68C'
       : '#BFD833';
+
+  const navigation = useNavigation();
+
+  const handleEditNote = () => {
+    navigation.navigate('Edit', {note: value});
+  };
   return (
-    <TouchableOpacity style={[styles.card, {backgroundColor: cardColor}]}>
+    <TouchableOpacity
+      style={[styles.card, {backgroundColor: cardColor}]}
+      onPress={handleEditNote}>
       {/* <Text style={styles.create}>{createdAt.getDate()} {monthList[this.state.createdAt.getMonth()]}</Text> */}
       <Text numberOfLines={1} style={styles.title}>
         {title}

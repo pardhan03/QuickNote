@@ -4,11 +4,11 @@ import {
   View,
   TouchableOpacity,
   TextInput,
+  FlatList,
 } from 'react-native';
 import React, {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import Card from '../Components/Card';
-import {FlatList} from 'react-native-gesture-handler';
 import {useSelector} from 'react-redux';
 const HomeScreen = () => {
   const [search, setSearch] = useState('');
@@ -37,14 +37,7 @@ const HomeScreen = () => {
         data={notes}
         keyExtractor={item => item?.id}
         numColumns={2}
-        renderItem={({item}) => (
-          <Card
-            title={item?.title}
-            note={item?.note}
-            category={item?.category}
-            category_id={item?.id}
-          />
-        )}
+        renderItem={({item}) => <Card value={item} />}
       />
       <View style={styles.addNote}>
         <TouchableOpacity onPress={handlePress} style={styles.button}>
