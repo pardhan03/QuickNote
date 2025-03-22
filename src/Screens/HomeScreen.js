@@ -5,8 +5,9 @@ import {
   TouchableOpacity,
   TextInput,
   FlatList,
+  ToastAndroid,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useDebugValue, useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import Card from '../Components/Card';
 import {useSelector, useDispatch} from 'react-redux';
@@ -17,6 +18,7 @@ const HomeScreen = () => {
   const dispatch = useDispatch();
 
   const notes = useSelector(state => state.notes.data);
+  const [filteredNotes, setFilteredNotes] = useState([]);
 
   const showToast = () => {
     ToastAndroid.show('Note deleted successfully!', ToastAndroid.SHORT);
@@ -35,6 +37,13 @@ const HomeScreen = () => {
     showToast();
   };
 
+  useEffect(() => {
+    const filteredItems = notes?.filter(item => {
+      return item?.title?.toLowerCase().includes(search.toLowerCase());
+    });
+    setFilteredNotes(filteredItems);
+  }, [search]);
+
   return (
     <View style={styles.container}>
       <View>
@@ -45,7 +54,7 @@ const HomeScreen = () => {
       </View>
       <FlatList
         style={styles.noteList}
-        data={notes}
+        data={filteredNotes}
         keyExtractor={item => item?.id}
         numColumns={2}
         renderItem={({item}) => (
