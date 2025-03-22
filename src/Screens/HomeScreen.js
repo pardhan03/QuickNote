@@ -9,12 +9,18 @@ import {
 import React, {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import Card from '../Components/Card';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+import {deleteNote} from '../Public/redux/notes/noteSlice';
 const HomeScreen = () => {
   const [search, setSearch] = useState('');
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const notes = useSelector(state => state.notes.data);
+
+  const showToast = () => {
+    ToastAndroid.show('Note deleted successfully!', ToastAndroid.SHORT);
+  };
 
   const handlePress = () => {
     navigation.navigate('Add');
@@ -22,6 +28,11 @@ const HomeScreen = () => {
 
   const handleSearch = text => {
     setSearch(text);
+  };
+
+  const handleDelete = item => {
+    dispatch(deleteNote(item));
+    showToast();
   };
 
   return (
@@ -37,7 +48,15 @@ const HomeScreen = () => {
         data={notes}
         keyExtractor={item => item?.id}
         numColumns={2}
-        renderItem={({item}) => <Card value={item} />}
+        renderItem={({item}) => (
+          <Card
+            value={item}
+            handleDeleteNote={e => {
+              e.preventDefault();
+              handleDelete(item);
+            }}
+          />
+        )}
       />
       <View style={styles.addNote}>
         <TouchableOpacity onPress={handlePress} style={styles.button}>
@@ -81,13 +100,12 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   noteList: {
-    marginTop: 70,
+    marginTop: 40,
     paddingBottom: 100,
     alignSelf: 'center',
   },
   search: {
     width: '90%',
-    padding: 0,
     position: 'absolute',
     marginTop: 30,
     shadowColor: '#000',

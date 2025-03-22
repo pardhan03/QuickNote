@@ -26,9 +26,13 @@ const noteSlice = createSlice({
         item.id === id ? {...item, ...action.payload} : item;
       });
     },
+    deleteNote: (state, action) => {
+      const {id} = action.payload;
+      state.data = state.data.filter(item => (item.id !== id ? item : null));
+    },
   },
 });
 
-export const {addNote, editNote} = noteSlice.actions;
+export const {addNote, editNote, deleteNote} = noteSlice.actions;
 
 export default noteSlice.reducer;

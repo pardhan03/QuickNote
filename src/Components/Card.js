@@ -3,7 +3,7 @@ import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const Card = ({value}) => {
+const Card = ({value, handleDeleteNote}) => {
   const {title, category, note, id} = value;
 
   const cardColor =
@@ -67,7 +67,12 @@ const Card = ({value}) => {
           </Text>
         </View>
         <View>
-          <Icon name="delete" size={24} color="#ff4242" />
+          <Icon
+            name="delete"
+            size={24}
+            color="#ff4242"
+            onPress={handleDeleteNote}
+          />
         </View>
       </View>
       <Text numberOfLines={1} style={styles.category}>
