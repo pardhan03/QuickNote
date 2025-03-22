@@ -25,9 +25,9 @@ const AddNote = () => {
   const navigation = useNavigation();
 
   const generateId = () => {
-    let newId = Math.random().toString(36).substr(2, 9);
+    let newId = Math.floor(Math.random() * 1000) + 1;
     while (notes.some(existingNote => existingNote.id === newId)) {
-      newId = Math.random().toString(36).substr(2, 9);
+      newId = Math.floor(Math.random() * 1000) + 1;
     }
 
     return newId;

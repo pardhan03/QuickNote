@@ -42,7 +42,7 @@ const HomeScreen = () => {
       return item?.title?.toLowerCase().includes(search.toLowerCase());
     });
     setFilteredNotes(filteredItems);
-  }, [search]);
+  }, [search, notes]);
 
   return (
     <View style={styles.container}>
