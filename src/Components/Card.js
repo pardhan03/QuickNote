@@ -1,6 +1,7 @@
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const Card = ({value}) => {
   const {title, category, note, id} = value;
@@ -59,10 +60,16 @@ const Card = ({value}) => {
     <TouchableOpacity
       style={[styles.card, {backgroundColor: cardColor}]}
       onPress={handleEditNote}>
-      {/* <Text style={styles.create}>{createdAt.getDate()} {monthList[this.state.createdAt.getMonth()]}</Text> */}
-      <Text numberOfLines={1} style={styles.title}>
-        {title}
-      </Text>
+      <View style={styles.headingContainer}>
+        <View>
+          <Text numberOfLines={1} style={styles.title}>
+            {title}
+          </Text>
+        </View>
+        <View>
+          <Icon name="delete" size={24} color="#ff4242" />
+        </View>
+      </View>
       <Text numberOfLines={1} style={styles.category}>
         {category}
       </Text>
@@ -84,14 +91,13 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.34,
     shadowRadius: 6.27,
-
     elevation: 10,
     shadowRadius: 5,
     shadowOpacity: 1.0,
     borderRadius: 5,
-    margin: 20,
-    paddingRight: 20,
-    width: 138,
+    margin: 10,
+    padding: 5,
+    width: 180,
     height: 136,
     color: '#fff',
   },
@@ -120,5 +126,10 @@ const styles = StyleSheet.create({
     fontSize: 12,
     top: 10,
     left: 10,
+  },
+  headingContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 });
