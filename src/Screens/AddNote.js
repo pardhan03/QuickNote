@@ -48,7 +48,7 @@ const AddNote = () => {
       id: '',
       title: '',
       note: '',
-      category: '',
+      category: 'Personal',
     });
   };
 
