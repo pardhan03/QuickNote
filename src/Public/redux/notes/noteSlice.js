@@ -20,9 +20,15 @@ const noteSlice = createSlice({
     addNote: (state, action) => {
       state.data.push(action.payload);
     },
+    editNote: (state, action) => {
+      const {id} = action.payload;
+      state.data = state?.data?.map(item => {
+        item.id === id ? {...item, ...action.payload} : item;
+      });
+    },
   },
 });
 
-export const {addNote} = noteSlice.actions;
+export const {addNote, editNote} = noteSlice.actions;
 
 export default noteSlice.reducer;

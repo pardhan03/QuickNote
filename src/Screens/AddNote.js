@@ -4,12 +4,14 @@ import {
   TextInput,
   TouchableOpacity,
   Text,
+  ToastAndroid,
 } from 'react-native';
 import React, {useState} from 'react';
 import {Picker} from '@react-native-picker/picker';
 import {useDispatch} from 'react-redux';
 import {addNote} from '../Public/redux/notes/noteSlice';
 import {useSelector} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
 
 const AddNote = () => {
   const [note, setNote] = useState({
@@ -19,6 +21,8 @@ const AddNote = () => {
   });
   const notes = useSelector(state => state.notes.data);
   const dispatch = useDispatch();
+
+  const navigation = useNavigation();
 
   const generateId = () => {
     let newId = Math.random().toString(36).substr(2, 9);
@@ -50,6 +54,7 @@ const AddNote = () => {
       note: '',
       category: 'Personal',
     });
+    navigation.navigate('Home');
   };
 
   return (
